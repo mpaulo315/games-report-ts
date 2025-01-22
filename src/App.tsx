@@ -1,9 +1,14 @@
+// import { BarChart } from "./components/charts/BarChart";
+// import { DoughnutChart } from "./components/charts/DoughnutChart";
+
+import { ChartContainer } from "./components/ChartContainer";
+
 function App() {
   return (
     <>
-      <h1>
-        Hello, world!
-      </h1>
+    <ChartContainer/>
+      {/* <BarChart />
+      <DoughnutChart/> */}
     </>
   );
 }
