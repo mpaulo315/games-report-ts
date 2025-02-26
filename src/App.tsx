@@ -1,10 +1,7 @@
-import { DateFilter } from "./components/Filters/DateFilter";
-import 'rsuite/dist/rsuite.min.css';
+import "rsuite/dist/rsuite.min.css";
 
 function App() {
-  return <>
-    <DateFilter />
-  </>;
+  return <></>;
 }
 
 export default App;
