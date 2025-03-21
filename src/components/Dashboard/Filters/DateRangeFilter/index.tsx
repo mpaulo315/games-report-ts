@@ -1,17 +1,12 @@
-import { StoreApi, UseBoundStore } from "zustand";
-import { useReleaseDateRange } from "../../../hooks/useFiltersData";
+import { useReleaseDateRange } from "../../../../hooks/useFiltersData";
 import { useEffect } from "react";
-import { iDateFilterStore } from "./type";
 import { DateRangePicker } from "rsuite";
+import { useDateFilterStore } from "./store";
 
 const { allowedRange } = DateRangePicker;
 
-interface Props {
-  store: UseBoundStore<StoreApi<iDateFilterStore>>;
-}
-
-export const DateFilter = ({ store }: Props) => {
-  const { dateRange, setDateRange } = store();
+export const DateRangeFilter = () => {
+  const { dateRange, setDateRange } = useDateFilterStore();
 
   const { data, isLoading } = useReleaseDateRange();
 

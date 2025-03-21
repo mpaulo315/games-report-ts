@@ -1,5 +1,9 @@
 import { create } from "zustand";
-import { iRangeFilterStore } from "./type";
+
+type iRangeFilterStore = {
+  range: [number, number];
+  setRange: (value: [number, number]) => void;
+};
 
 export const useRangeFilterStore = create<iRangeFilterStore>()((set) => ({
   range: [0, 10],
