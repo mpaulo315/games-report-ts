@@ -1,26 +1,10 @@
-import { useState } from "react";
-import { RangeSlider } from "rsuite";
+import { RangeFilter } from "./component";
+import { useRangeFilterStore } from "./store";
+import "./style.css";
 
-export const RangeFilter = () => {
-  const [value, setValue] = useState<[number, number]>([0, 10]);
-  console.log(value);
+export const createFilter = () => {
+  const store = useRangeFilterStore;
+  const element = <RangeFilter store={store} />;
 
-  return (
-    <>
-      <RangeSlider
-        value={value}
-        step={0.1}
-        min={0}
-        max={10}
-        onChange={setValue}
-        renderMark={(mark) => {
-          if ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].includes(mark)) {
-            return <span>{mark}</span>;
-          }
-        }}
-        progress
-        tooltip
-      />
-    </>
-  );
+  return { element, store };
 };
