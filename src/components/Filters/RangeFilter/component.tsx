@@ -1,7 +1,7 @@
 import { StoreApi, UseBoundStore } from "zustand";
 import { iRangeFilterStore } from "./type";
 import { useRef } from "react";
-import { RangeSlider } from "rsuite";
+import { InputGroup, RangeSlider } from "rsuite";
 
 interface Props {
   store: UseBoundStore<StoreApi<iRangeFilterStore>>;
@@ -14,6 +14,8 @@ export const RangeFilter = ({ store }: Props) => {
 
   return (
     <>
+    <InputGroup style={{ width: "100%", justifyContent: "space-between" }}>
+    <InputGroup.Addon>{range[0]}</InputGroup.Addon>
       <RangeSlider
         value={range}
         step={0.1}
@@ -25,8 +27,11 @@ export const RangeFilter = ({ store }: Props) => {
             return <span>{mark}</span>;
           }
         }}
-        progress
-      />
+        tooltip={false}
+        className="rs-slider"
+        />
+        <InputGroup.Addon>{range[1]}</InputGroup.Addon>
+        </InputGroup>
     </>
   );
 };
