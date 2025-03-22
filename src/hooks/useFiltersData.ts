@@ -11,11 +11,8 @@ export const useReleaseDateRange = () => {
     queryFn: getReleaseDateRangeServ,
     queryKey: ["release-date-range"],
   });
-
-  return {
-    ...query,
-    data: query.data,
-  };
+  
+  return query;
 };
 
 export const usePublishers = () => {
