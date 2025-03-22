@@ -56,8 +56,8 @@ export const ChartDataContextProvider = ({ children }: Props) => {
     dateRange,
     scoreRange,
   ]);
-  console.log(filteredData.length);
 
+  
   return (
     <ChartDataContext.Provider
       value={{ filteredData, data, isLoading, isError, error }}
