@@ -1,26 +1,42 @@
-import { useChartData } from "../../hooks/useChartData";
+import { usePaginatedChartData } from "../../hooks/useChartData";
 import { ChartDataContext } from "../../contexts/ChartDataContext";
 import { useGenresStore } from "../../components/Dashboard/Filters/GenreFilter/store";
 import { usePublishersStore } from "../../components/Dashboard/Filters/PublisherFilter/store";
 import { useDevelopersStore } from "../../components/Dashboard/Filters/DeveloperFilter/store";
 import { useDateFilterStore } from "../../components/Dashboard/Filters/DateRangeFilter/store";
 import { useRangeFilterStore } from "../../components/Dashboard/Filters/ScoreRangeFilter/store";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 type Props = {
   children?: React.ReactNode;
 };
 
 export const ChartDataContextProvider = ({ children }: Props) => {
-  const { data, isLoading, isError, error } = useChartData();
+  // const { data, isLoading, isError, error } = useChartData();
+  const {
+    data: dataPages,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    isError,
+    error,
+  } = usePaginatedChartData();
   const genresStore = useGenresStore((state) => state.store);
   const publishersStore = usePublishersStore((state) => state.store);
   const developersStore = useDevelopersStore((state) => state.store);
   const dateRange = useDateFilterStore((state) => state.dateRange);
   const scoreRange = useRangeFilterStore((state) => state.range);
 
+  useEffect(() => {
+    if (!isFetchingNextPage && hasNextPage) fetchNextPage();
+  }, [isFetchingNextPage, fetchNextPage, hasNextPage]);
 
   const filteredData = useMemo(() => {
+    if (!dataPages) return [];
+
+    const data = dataPages.pages.flatMap((page) => page);
+
     if (!data) return [];
     return data.filter((item) => {
       const genreMatch =
@@ -49,7 +65,7 @@ export const ChartDataContextProvider = ({ children }: Props) => {
       );
     });
   }, [
-    data,
+    dataPages,
     genresStore,
     publishersStore,
     developersStore,
@@ -57,10 +73,14 @@ export const ChartDataContextProvider = ({ children }: Props) => {
     scoreRange,
   ]);
 
-  
   return (
     <ChartDataContext.Provider
-      value={{ filteredData, data, isLoading, isError, error }}
+      value={{
+        filteredData,
+        isLoading: isLoading && isFetchingNextPage,
+        isError,
+        error,
+      }}
     >
       {children}
     </ChartDataContext.Provider>

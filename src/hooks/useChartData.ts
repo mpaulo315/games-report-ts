@@ -1,15 +1,21 @@
-import { useQuery } from "@tanstack/react-query"
-import { getGames } from "../repositories/Games"
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { getGames, getPaginatedGames } from "../repositories/Games";
 
 export const useChartData = () => {
-    const query = useQuery({
-        queryFn: getGames,
-        queryKey: ["chart-data"],
+  const query = useQuery({
+    queryFn: getGames,
+    queryKey: ["chart-data"],
+  });
 
-    })
+  return query;
+};
 
-    return {
-        ...query,
-        data: query.data
-    }
-}
+export const usePaginatedChartData = () => {
+  return useInfiniteQuery({
+    queryKey: ["pg-chart-data"],
+    initialPageParam: 1,
+    queryFn: getPaginatedGames,
+    getNextPageParam: (lastPage, pages) =>
+      lastPage?.length ? pages.length + 1 : undefined,
+  });
+};
