@@ -22,6 +22,7 @@ export const DeveloperFilter = () => {
         onSelect={addStoreValue}
         cleanable
         block
+        virtualized
       />
     </>
   );

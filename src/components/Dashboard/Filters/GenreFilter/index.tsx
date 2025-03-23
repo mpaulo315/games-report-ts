@@ -21,6 +21,7 @@ export const GenreFilter = () => {
         onSelect={addStoreValue}
         cleanable
         block
+        virtualized
       />
     </>
   );

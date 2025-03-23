@@ -21,6 +21,7 @@ export const PublisherFilter = () => {
         onSelect={addStoreValue}
         cleanable
         block
+        virtualized
       />
     </>
   );
