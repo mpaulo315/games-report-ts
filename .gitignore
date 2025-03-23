@@ -29,3 +29,6 @@ dist-ssr
 # Test files and folders
 test*
 .venv
+
+# Coverage
+coverage

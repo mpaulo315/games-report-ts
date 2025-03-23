@@ -10,6 +10,13 @@ export const getGames = async () : Promise<Game[]> => {
   return response.data;
 };
 
+export const getPaginatedGames = async ({pageParam = 1}) : Promise<Game[]> => {
+  const pageSize = 1000;
+  const url = `${API_BASE_URL}${ENDPOINT}/list/?page=${pageParam}&limit=${pageSize}`;
+  const response = await axios.get<Game[]>(url);
+  return response.data;
+};
+
 export const countGames = async () : Promise<number> => {
   const url = `${API_BASE_URL}${ENDPOINT}/count`;
   const response = await axios.get<number>(url);
